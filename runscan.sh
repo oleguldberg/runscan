@@ -49,13 +49,18 @@ echo "Reading domains from $domains and outputting to $outputfile"
 # Put the head in the outputfile
 cat templates/htmlhead > "$outputfile"
 
+# Add information about starting scan
+#  TODO: Add more information on the scanning for example which tools the scan is using.
+echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
+echo "<h1>Starting scan ... </h1>" 2>&1 >> "$outputfile"
+date  2>&1 >> "$outputfile"
+echo "</div>" 2>&1 >> "$outputfile"
+
 # Loop and handle domains
 for i in $(cat $domains)
 do
-	echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
+	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
 	echo "<h1>Scanning $i </h1>" 2>&1 >> "$outputfile"
-	date  2>&1 >> "$outputfile"
-	#  TODO: Add more information on the scanning for example which tools the scan is using.
 	echo "</div>" 2>&1 >> "$outputfile"
 
 	# Allways do DNS recon
@@ -93,6 +98,14 @@ do
 	# date  2>&1 >> "$outputfile"
 	# echo "***** done with $i *****" 2>&1 >> "$outputfile"
 done
+
+# Add information about ending scan
+#  TODO: Add more information on the scanning for example which tools the scan is using.
+echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
+echo "<h1>Ending scan - thank you for the ride</h1>" 2>&1 >> "$outputfile"
+date  2>&1 >> "$outputfile"
+echo "</div>" 2>&1 >> "$outputfile"
+
 
 # put the tail on the outputfile
 cat templates/htmltail >> "$outputfile"

@@ -3,7 +3,11 @@
 <head>
 <title>Results of runscan</title>
 <style>
-    .heading {
+    .header {
+        border: 7px outset black;
+        background-color: greenyellow;
+    }
+    .section {
         border: 7px outset black;
         background-color: aquamarine;
     }
