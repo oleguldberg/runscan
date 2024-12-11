@@ -46,34 +46,41 @@ done
 
 echo "Reading domains from $domains and outputting to $outputfile"
 
+# Put the head in the outputfile
+cat templates/htmlhead > "$outputfile"
+
 # Loop and handle domains
 for i in $(cat $domains)
 do
-	echo "***** scanning $i *****" 2>&1 >> "$outputfile"
+	echo "<h1>Scanning $i </h1>" 2>&1 >> "$outputfile"
 	date  2>&1 >> "$outputfile"
 
 	# Allways do DNS recon
-	echo "==--> Doing dnsrecon on $i" 2>&1 >> "$outputfile"
+	echo "<h2>Doing dnsrecon on $i</h2>" 2>&1 >> "$outputfile"
 	dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 
 	# Use nmap if desired
 	if [ "$use_nmap" = true ]; then
-		echo "==--> Doing portscanning on $i" 2>&1 >> "$outputfile"
+		echo "<h2> Doing portscanning on $i</h2>" 2>&1 >> "$outputfile"
 		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
 	fi
 
 	# Use sslscan if desired
 	if [ "$use_sslscan" = true ]; then
-		echo "==--> Doing sslscan on $i" 2>&1 >> "$outputfile"
+		echo "<h2>Doing sslscan on $i</h2>" 2>&1 >> "$outputfile"
 		sslscan $i:443 2>&1 >> "$outputfile"
 	fi
 
 	# Use sslyze if desired
 	if [ "$use_sslyze" = true ]; then
-		echo "==--> Doing sslyze on $i" 2>&1 >> "$outputfile"
+		echo "<h2>Doing sslyze on $i</h2>" 2>&1 >> "$outputfile"
 		sslyze $i 2>&1 >> "$outputfile"
 	fi
 
-	date  2>&1 >> "$outputfile"
-	echo "***** done with $i *****" 2>&1 >> "$outputfile"
+	# This might not be needed when doing HTML
+	# date  2>&1 >> "$outputfile"
+	# echo "***** done with $i *****" 2>&1 >> "$outputfile"
 done
+
+# put the tail on the outputfile
+cat templates/htmltail >> "$outputfile"
