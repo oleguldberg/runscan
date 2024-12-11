@@ -2,5 +2,15 @@
 <html lang="en">
 <head>
 <title>Results of runscan</title>
+<style>
+    .heading {
+        border: 7px outset black;
+        background-color: aquamarine;
+    }
+    .info {
+        border: 7px outset black;
+        background-color: antiquewhite;
+    }
+</style>
 </head>
 <body>
