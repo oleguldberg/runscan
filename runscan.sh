@@ -63,16 +63,21 @@ do
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
 
-	# Allways do DNS recon
+	# Do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
+	echo "<hr>" >> "$outputfile"
+	echo "Checking A record" >> "$outputfile"
 	dig $i A 2>&1 >> "$outputfile"
 	echo "<hr>" >> "$outputfile"
+	echo "Checking MX record" >> "$outputfile"
 	dig $i MX 2>&1 >> "$outputfile"
 	echo "<hr>" >> "$outputfile"
+	echo "Checking TXT record" >> "$outputfile"
 	dig $i TXT 2>&1 >> "$outputfile"
 	echo "<hr>" >> "$outputfile"
+	echo "Checking for DNSSEC" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 
