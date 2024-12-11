@@ -51,7 +51,7 @@ cat templates/htmlhead > "$outputfile"
 
 # Add information about starting scan
 #  TODO: Add more information on the scanning for example which tools the scan is using.
-echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
+echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Starting scan ... </h1>" 2>&1 >> "$outputfile"
 date  2>&1 >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
@@ -101,7 +101,7 @@ done
 
 # Add information about ending scan
 #  TODO: Add more information on the scanning for example which tools the scan is using.
-echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
+echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Ending scan - thank you for the ride</h1>" 2>&1 >> "$outputfile"
 date  2>&1 >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
