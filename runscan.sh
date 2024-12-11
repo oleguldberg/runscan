@@ -69,6 +69,7 @@ do
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	dig $i A 2>&1 >> "$outputfile"
 	dig $i MX 2>&1 >> "$outputfile"
+	dig $i TXT 2>&1 >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 
