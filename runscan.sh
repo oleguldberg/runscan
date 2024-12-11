@@ -69,19 +69,19 @@ do
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "Checking A record" >> "$outputfile"
+	echo "Checking A record<br>" >> "$outputfile"
 	dig @8.8.4.4 $i A 2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "Checking MX record" >> "$outputfile"
+	echo "Checking MX record<br>" >> "$outputfile"
 	dig @8.8.4.4 $i MX 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
-	echo "Checking TXT record" >> "$outputfile"
+	echo "Checking TXT record<br>" >> "$outputfile"
 	dig @8.8.4.4 $i TXT 2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "Checking for DNSSEC" >> "$outputfile"
+	echo "Checking for DNSSEC<br>" >> "$outputfile"
 	delv @8.8.4.4 $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 
