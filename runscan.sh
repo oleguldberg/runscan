@@ -65,8 +65,11 @@ do
 
 	# Allways do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-	echo "<h3>Doing dnsrecon on $i</h3>" 2>&1 >> "$outputfile"
-	dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
+	echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
+	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
+	dig $i A 2>&1 >> "$outputfile"
+	dig $i MX 2>&1 >> "$outputfile"
+	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 
 
