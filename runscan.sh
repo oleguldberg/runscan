@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Prints the help
 function show_help {
@@ -71,19 +71,19 @@ do
 	
 	echo "<hr>" >> "$outputfile"
 	echo "<h4>Checking A record</h4><br>" >> "$outputfile"
-	dig $i A 2>&1 >> "$outputfile"
+	dig $i A +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
 	echo "<h4>Checking CNAME record</h4><br>" >> "$outputfile"
-	dig $i CNAME 2>&1 >> "$outputfile"
+	dig $i CNAME +short  2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
 	echo "<h4>Checking MX record<br></h4>" >> "$outputfile"
-	dig $i MX 2>&1 >> "$outputfile"
+	dig $i MX +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
 	echo "<h4>Checking TXT record</h4><br>" >> "$outputfile"
-	dig $i TXT 2>&1 >> "$outputfile"
+	dig $i TXT +short 2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
 	echo "<h4>Checking for DNSSEC<br></h4>" >> "$outputfile"
