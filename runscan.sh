@@ -60,12 +60,12 @@ echo "</div>" 2>&1 >> "$outputfile"
 for i in $(cat $domains)
 do
 	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
-	echo "<h1>Scanning $i </h1>" 2>&1 >> "$outputfile"
+	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
 
 	# Allways do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-	echo "<h2>Doing dnsrecon on $i</h2>" 2>&1 >> "$outputfile"
+	echo "<h3>Doing dnsrecon on $i</h3>" 2>&1 >> "$outputfile"
 	dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
 
@@ -73,7 +73,7 @@ do
 	# Use nmap if desired
 	if [ "$use_nmap" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h2> Doing portscanning on $i</h2>" 2>&1 >> "$outputfile"
+		echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
 		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
@@ -81,7 +81,7 @@ do
 	# Use sslscan if desired
 	if [ "$use_sslscan" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h2>Doing sslscan on $i</h2>" 2>&1 >> "$outputfile"
+		echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 		sslscan $i:443 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
@@ -89,7 +89,7 @@ do
 	# Use sslyze if desired
 	if [ "$use_sslyze" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h2>Doing sslyze on $i</h2>" 2>&1 >> "$outputfile"
+		echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
 		sslyze $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
