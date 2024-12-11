@@ -14,6 +14,7 @@ function show_help {
 domains=""
 use_nmap=false
 use_sslscan=false
+use_sslyse=false
 outputfile=scanout.html
 
 # Reset if getops has been used previously
