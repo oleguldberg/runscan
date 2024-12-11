@@ -55,6 +55,7 @@ do
 	echo "<div class=\"heading\">" 2>&1 >> "$outputfile"
 	echo "<h1>Scanning $i </h1>" 2>&1 >> "$outputfile"
 	date  2>&1 >> "$outputfile"
+	#  TODO: Add more information on the scanning for example which tools the scan is using.
 	echo "</div>" 2>&1 >> "$outputfile"
 
 	# Allways do DNS recon
