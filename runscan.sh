@@ -67,18 +67,22 @@ do
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
+	
 	echo "<hr>" >> "$outputfile"
 	echo "Checking A record" >> "$outputfile"
-	dig $i A 2>&1 >> "$outputfile"
+	dig @8.8.4.4 $i A 2>&1 >> "$outputfile"
+	
 	echo "<hr>" >> "$outputfile"
 	echo "Checking MX record" >> "$outputfile"
-	dig $i MX 2>&1 >> "$outputfile"
+	dig @8.8.4.4 $i MX 2>&1 >> "$outputfile"
+
 	echo "<hr>" >> "$outputfile"
 	echo "Checking TXT record" >> "$outputfile"
-	dig $i TXT 2>&1 >> "$outputfile"
+	dig @8.8.4.4 $i TXT 2>&1 >> "$outputfile"
+	
 	echo "<hr>" >> "$outputfile"
 	echo "Checking for DNSSEC" >> "$outputfile"
-	delv $i 2>&1 >> "$outputfile" 
+	delv @8.8.4.4 $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 
 	# Use nmap if desired
