@@ -70,11 +70,11 @@ do
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking A record</h4><br>" >> "$outputfile"
+	echo "<h4>Checking A record</h4>" >> "$outputfile"
 	dig $i A +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking CNAME record</h4><br>" >> "$outputfile"
+	echo "<h4>Checking CNAME record</h4>" >> "$outputfile"
 	dig $i CNAME +short  2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
@@ -82,7 +82,7 @@ do
 	dig $i MX +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking TXT record</h4><br>" >> "$outputfile"
+	echo "<h4>Checking TXT record</h4>" >> "$outputfile"
 	dig $i TXT +short 2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
