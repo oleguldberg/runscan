@@ -90,7 +90,7 @@ do
 	echo "<h4>Checking for DNSSEC<br></h4>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
-	echo "<br>" >> "$outputfile"
+	# echo "<br>" >> "$outputfile"
 
 	# Use nmap if desired
 	if [ "$use_nmap" = true ]; then
@@ -98,7 +98,7 @@ do
 		echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
 		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		echo "<br>" >> "$outputfile"
+		# echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslscan if desired
@@ -107,7 +107,7 @@ do
 		echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 		sslscan $i:443 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		echo "<br>" >> "$outputfile"
+		# echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslyze if desired
@@ -116,9 +116,11 @@ do
 		echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
 		sslyze $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		echo "<br>" >> "$outputfile"
+		# echo "<br>" >> "$outputfile"
 	fi
 
+	# Breakline before next domain
+	echo "<br>" >> "$outputfile"
 done
 
 # Add information about ending scan
