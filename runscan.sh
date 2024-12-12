@@ -56,6 +56,7 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Starting scan ... Hang on!1</h1>" 2>&1 >> "$outputfile"
 date -uR 2>&1 >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
+echo "<br>" >> "$outputfile"
 
 # Loop and handle domains
 for i in $(cat $domains)
@@ -63,6 +64,7 @@ do
 	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
+	echo "<br>" >> "$outputfile"
 
 	# Do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
@@ -89,6 +91,7 @@ do
 	echo "<h4>Checking for DNSSEC<br></h4>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
+	echo "<br>" >> "$outputfile"
 
 	# Use nmap if desired
 	if [ "$use_nmap" = true ]; then
@@ -96,6 +99,7 @@ do
 		echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
 		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslscan if desired
@@ -104,6 +108,7 @@ do
 		echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 		sslscan $i:443 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslyze if desired
@@ -112,6 +117,7 @@ do
 		echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
 		sslyze $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br>" >> "$outputfile"
 	fi
 
 done
@@ -122,6 +128,7 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Ending scan... Hope you enjoyed the ride</h1>" 2>&1 >> "$outputfile"
 date -uR 2>&1 >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
+echo "<br>" >> "$outputfile"
 
 
 # put the tail on the outputfile
