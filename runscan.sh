@@ -64,7 +64,6 @@ do
 	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
-	echo "<br>" >> "$outputfile"
 
 	# Do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
