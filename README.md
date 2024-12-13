@@ -18,4 +18,5 @@ brew install bind
 Restart your terminal and confirm you are using the Homebrew delv
 
  ~ % which delv
+
 /opt/homebrew/bin/delv
