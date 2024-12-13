@@ -3,7 +3,6 @@
 <head>
 <title>Results of runscan</title>
 <style>
-    # CSS for the headers
     .header {
         border: 5px outset green;
         color: greenyellow;
@@ -11,7 +10,6 @@
         font-family: "Lucida Console", monospace;
     }
 
-    # CSS for the sections
     .section {
         border: 5px outset green;
         color: greenyellow;
@@ -19,7 +17,6 @@
         font-family: "Lucida Console", monospace;
     }
 
-    # CSS for the info
     .info {
         border: 5px outset green;
         color: greenyellow;
@@ -29,8 +26,6 @@
 
     body {
         background-color: black;
-        color: green;
-        font-family: "Lucida Console", monospace;
     }
 
 </style>
