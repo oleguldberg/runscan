@@ -55,6 +55,7 @@ cat templates/htmlhead > "$outputfile"
 echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Starting scan ... Hang on!1</h1>" 2>&1 >> "$outputfile"
 date -uR 2>&1 >> "$outputfile"
+echo "<br>Always doing DNS-queries" >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
@@ -67,27 +68,27 @@ do
 
 	# Do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-	echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
+	# echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	
-	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking A record</h4>" >> "$outputfile"
+	# echo "<hr>" >> "$outputfile"
+	echo "<h3>Checking A record</h3>" >> "$outputfile"
 	dig $i A +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking CNAME record</h4>" >> "$outputfile"
+	echo "<h3>Checking CNAME record</h3>" >> "$outputfile"
 	dig $i CNAME +short  2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking MX record<br></h4>" >> "$outputfile"
+	echo "<h3>Checking MX record<br></h3>" >> "$outputfile"
 	dig $i MX +short 2>&1 >> "$outputfile"
 
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking TXT record</h4>" >> "$outputfile"
+	echo "<h3>Checking TXT record</h3>" >> "$outputfile"
 	dig $i TXT +short 2>&1 >> "$outputfile"
 	
 	echo "<hr>" >> "$outputfile"
-	echo "<h4>Checking for DNSSEC<br></h4>" >> "$outputfile"
+	echo "<h3>Checking for DNSSEC<br></h3>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "</div>" 2>&1 >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
