@@ -59,7 +59,7 @@ echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 echo "Starting scan: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 
 # DNS-info
-echo "<br>DNS-queries: YES" >> "$outputfile"
+echo "<br>DNS-queries: <b><i>YES</b></i>" >> "$outputfile"
 
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
