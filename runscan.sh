@@ -67,7 +67,7 @@ echo "Starting scan at: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && 
 echo "<br>Number of domains to be scanned: <b><i>"$number_of_domains"</b></i>" >> "$outputfile"
 
 # DNS-info - always do DNS-scanning
-echo "<br>DNS-queries: <b><i>YES</b></i>" >> "$outputfile"
+echo "<br>DNS-queries: <b><i><p class=\"green\">YES</p></b></i>" >> "$outputfile"
 
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
