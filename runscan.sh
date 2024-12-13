@@ -169,7 +169,6 @@ do
 done
 
 # Add information about ending scan
-#  TODO: Add more information on the scanning for example which tools the scan is using.
 echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Ending scan... Hope you enjoyed the ride</h1>" 2>&1 >> "$outputfile"
 echo "Ending scan at: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile"
