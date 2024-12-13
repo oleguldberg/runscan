@@ -6,22 +6,28 @@
     body {
         background-color: black;
         color: green;
+        font-family: "Lucida Console", monospace;
+    }
+}
     }
 
     .header {
         border: 5px outset green;
         color: greenyellow;
         background-color: black;
+        font-family: "Lucida Console", monospace;
     }
     .section {
         border: 5px outset green;
         color: greenyellow;
         background-color: black;
+        font-family: "Lucida Console", monospace;
     }
     .info {
         border: 5px outset green;
         color: greenyellow;
         background-color: darkslategrey;
+        font-family: "Lucida Console", monospace;
     }
 </style>
 </head>

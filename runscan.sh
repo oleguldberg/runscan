@@ -120,7 +120,7 @@ do
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC<br></h3>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
-	echo "<br></div>" 2>&1 >> "$outputfile"
+	echo "<br><br></div>" 2>&1 >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
 
 	# Use nmap if desired
