@@ -148,8 +148,12 @@ do
 	# Use sslscan if desired
 	if [ "$use_sslscan" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
-		sslscan $i:443 2>&1 >> "$outputfile"
+		if [ "$a_record" == "NONE"]; then
+			echo "No A-record, skipping scanning SSL on host" >> "$outputfile" 
+		else
+			echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
+			sslscan $i:443 2>&1 >> "$outputfile"
+		fi
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
 
