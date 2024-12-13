@@ -53,9 +53,39 @@ cat templates/htmlhead > "$outputfile"
 # Add information about starting scan
 #  TODO: Add more information on the scanning for example which tools the scan is using.
 echo "<div class=\"header\">" 2>&1 >> "$outputfile"
-echo "<h1>Starting scan ... Hang on!1</h1>" 2>&1 >> "$outputfile"
-date -uR 2>&1 >> "$outputfile"
-echo "<br>Always doing DNS-queries" >> "$outputfile"
+echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
+
+# Starting information
+echo "Starting scan: " >> "$outputfile" && date -uR 2>&1 >> "$outputfile"
+
+# DNS-info
+echo "<br>DNS-queries: YES" >> "$outputfile"
+
+# Portscanning information
+echo "<br>Scanning ports with nmap: " >> "$outputfile"
+if [ "$use_nmap" = true ]; then 
+	echo "YES" >> "$outputfile"
+else
+	echo "NO" >> "$outputfile"
+fi
+
+# sslscan information
+echo "<br>Analysis with sslscan: " >> "$outputfile"
+if [ "$use_sslscan" = true ]; then 
+	echo "YES" >> "$outputfile"
+else
+	echo "NO" >> "$outputfile"
+fi
+
+# sslyze information
+echo "<br>Analyses with sslyze: " >> "$outputfile"
+if [ "$use_sslyze" = true ]; then 
+	echo "YES" >> "$outputfile"
+else
+	echo "NO" >> "$outputfile"
+fi
+
+echo "<br><br>" >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
