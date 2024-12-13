@@ -72,25 +72,25 @@ echo "<br>DNS-queries: <b><i>YES</b></i>" >> "$outputfile"
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
 if [ "$use_nmap" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslscan information
 echo "<br>Analysis with sslscan: " >> "$outputfile"
 if [ "$use_sslscan" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslyze information
 echo "<br>Analyses with sslyze: " >> "$outputfile"
 if [ "$use_sslyze" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 echo "<br><br>" >> "$outputfile"
@@ -113,7 +113,7 @@ do
 	
 	a_record=$(dig $i A +short)
 	if [ -z "$a_record" ]; then
-		a_record=NONE
+		a_record="NONE"
 		echo "<p class=\"red\">NONE</p>" >> "$outputfile"
 	else
 		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
@@ -148,7 +148,7 @@ do
 	# Use sslscan if desired
 	if [ "$use_sslscan" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		if [ "$a_record" == "NONE"]; then
+		if [[ "$a_record" == "NONE" ]]; then
 			echo "No A-record, skipping scanning SSL on host" >> "$outputfile" 
 		else
 			echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
