@@ -56,7 +56,7 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 
 # Starting information
-echo "Starting scan: " >> "$outputfile" && echo "<b>" >> $"outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b>" >> $"outputfile" 
+echo "Starting scan: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 
 # DNS-info
 echo "<br>DNS-queries: YES" >> "$outputfile"
@@ -64,25 +64,25 @@ echo "<br>DNS-queries: YES" >> "$outputfile"
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
 if [ "$use_nmap" = true ]; then 
-	echo "YES" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
 else
-	echo "NO" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslscan information
 echo "<br>Analysis with sslscan: " >> "$outputfile"
 if [ "$use_sslscan" = true ]; then 
-	echo "YES" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
 else
-	echo "NO" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslyze information
 echo "<br>Analyses with sslyze: " >> "$outputfile"
 if [ "$use_sslyze" = true ]; then 
-	echo "YES" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
 else
-	echo "NO" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 echo "<br><br>" >> "$outputfile"
