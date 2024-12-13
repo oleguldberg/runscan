@@ -56,7 +56,6 @@ echo "Reading $number_of_domains from $domains and outputting to $outputfile"
 cat templates/htmlhead > "$outputfile"
 
 # Add information about starting scan
-#  TODO: Add more information on the scanning for example which tools the scan is using.
 echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 
@@ -67,7 +66,7 @@ echo "Starting scan at: " >> "$outputfile" && echo "<br><b><i>" >> "$outputfile"
 echo "<br>Number of domains to be scanned: <br><b><i>"$number_of_domains"</b></i><br>" >> "$outputfile"
 
 # DNS-info - always do DNS-scanning
-echo "<br>DNS-queries: <b><i><div class=\"green\">YES</div></b></i><br>" >> "$outputfile"
+echo "<br>DNS-queries: <b><i><div class=\"green\">YES</div></b></i>" >> "$outputfile"
 
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
@@ -90,7 +89,7 @@ echo "<br>Analyses with sslyze: " >> "$outputfile"
 if [ "$use_sslyze" = true ]; then 
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 echo "<br><br>" >> "$outputfile"
