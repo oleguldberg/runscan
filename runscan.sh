@@ -56,7 +56,7 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 
 # Starting information
-echo "Starting scan: " >> "$outputfile" && date -uR 2>&1 >> "$outputfile"
+echo "Starting scan: " >> "$outputfile" && echo "<b>" >> $"outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b>" >> $"outputfile" 
 
 # DNS-info
 echo "<br>DNS-queries: YES" >> "$outputfile"
