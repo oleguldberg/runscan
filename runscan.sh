@@ -17,6 +17,7 @@ use_nmap=false
 use_sslscan=false
 use_sslyse=false
 outputfile=scanout.html
+a_record=""
 
 # Reset if getops has been used previously
 OPTIND=1
@@ -105,12 +106,18 @@ do
 
 	# Do DNS recon
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-	# echo "<h3>Doing dns-recon on $i</h3>" 2>&1 >> "$outputfile"
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	
 	# echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking A record</h3>" >> "$outputfile"
-	dig $i A +short 2>&1 >> "$outputfile"
+	
+	a_record=$(dig $i A +short)
+	if [ -z "$a_record" ]; then
+		a_record=NONE
+		echo "<p class=\"red\">NONE</p>" >> "$outputfile"
+	else
+		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
+	fi
 
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking CNAME record</h3>" >> "$outputfile"
@@ -136,7 +143,6 @@ do
 		echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
 		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		# echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslscan if desired
@@ -145,7 +151,6 @@ do
 		echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 		sslscan $i:443 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		# echo "<br>" >> "$outputfile"
 	fi
 
 	# Use sslyze if desired
@@ -154,11 +159,13 @@ do
 		echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
 		sslyze $i 2>&1 >> "$outputfile"
 		echo "</div>" 2>&1 >> "$outputfile"
-		# echo "<br>" >> "$outputfile"
 	fi
 
 	# Breakline before next domain
 	echo "<br>" >> "$outputfile"
+
+	# clear a_record before next domain
+	a_record=""
 done
 
 # Add information about ending scan
