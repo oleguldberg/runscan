@@ -8,21 +8,24 @@
         color: green;
         font-family: "Lucida Console", monospace;
     }
-}
-    }
 
+    # CSS for the headers
     .header {
         border: 5px outset green;
         color: greenyellow;
         background-color: black;
         font-family: "Lucida Console", monospace;
     }
+
+    # CSS for the sections
     .section {
         border: 5px outset green;
         color: greenyellow;
         background-color: black;
         font-family: "Lucida Console", monospace;
     }
+
+    # CSS for the info
     .info {
         border: 5px outset green;
         color: greenyellow;
