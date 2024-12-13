@@ -159,7 +159,7 @@ done
 echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Ending scan... Hope you enjoyed the ride</h1>" 2>&1 >> "$outputfile"
 echo "Ending scan: " >> "$outputfile" && date -uR 2>&1 >> "$outputfile"
-echo "</div>" 2>&1 >> "$outputfile"
+echo "<br><br></div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
 # put the tail on the outputfile
