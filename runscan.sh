@@ -64,7 +64,7 @@ echo "<br>DNS-queries: YES" >> "$outputfile"
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
 if [ "$use_nmap" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
@@ -72,7 +72,7 @@ fi
 # sslscan information
 echo "<br>Analysis with sslscan: " >> "$outputfile"
 if [ "$use_sslscan" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
@@ -80,7 +80,7 @@ fi
 # sslyze information
 echo "<br>Analyses with sslyze: " >> "$outputfile"
 if [ "$use_sslyze" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "YES" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "NO" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
