@@ -131,6 +131,5 @@ date -uR 2>&1 >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
-
 # put the tail on the outputfile
 cat templates/htmltail >> "$outputfile"
