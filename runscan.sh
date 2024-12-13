@@ -12,6 +12,7 @@ function show_help {
 
 # Initialize variables
 domains=""
+number_of_domains=0
 use_nmap=false
 use_sslscan=false
 use_sslyse=false
@@ -45,7 +46,10 @@ while getopts "l:o:hnsy" opt; do
 	esac
 done
 
-echo "Reading domains from $domains and outputting to $outputfile"
+number_of_domains=$(wc -l < $domains)
+
+# Output to terminal
+echo "Reading $number_of_domains from $domains and outputting to $outputfile"
 
 # Put the head in the outputfile
 cat templates/htmlhead > "$outputfile"
@@ -56,9 +60,12 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 
 # Starting information
-echo "Starting scan: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+echo "Starting scan at: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 
-# DNS-info
+# Info on number of domains to be scanned
+echo "<br>Number of domains to be scanned: <b><i>"$number_of_domains"</b></i>" >> "$outputfile"
+
+# DNS-info - always do DNS-scanning
 echo "<br>DNS-queries: <b><i>YES</b></i>" >> "$outputfile"
 
 # Portscanning information
