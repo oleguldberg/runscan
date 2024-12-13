@@ -3,16 +3,24 @@
 <head>
 <title>Results of runscan</title>
 <style>
+    body {
+        background-color: black;
+        color: green;
+    }
+
     .header {
-        border: 7px outset black;
-        background-color: greenyellow;
+        border: 5px outset black;
+        color: black;
+        background-color: cornflowerblue;
     }
     .section {
-        border: 7px outset black;
-        background-color: aquamarine;
+        border: 5px outset black;
+        color: black;
+        background-color: deepskyblue;
     }
     .info {
-        border: 7px outset black;
+        border: 5px outset black;
+        color: black;
         background-color: antiquewhite;
     }
 </style>
