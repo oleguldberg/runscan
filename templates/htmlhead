@@ -3,12 +3,6 @@
 <head>
 <title>Results of runscan</title>
 <style>
-    body {
-        background-color: black;
-        color: green;
-        font-family: "Lucida Console", monospace;
-    }
-
     # CSS for the headers
     .header {
         border: 5px outset green;
@@ -32,6 +26,13 @@
         background-color: darkslategrey;
         font-family: "Lucida Console", monospace;
     }
+
+    body {
+        background-color: black;
+        color: green;
+        font-family: "Lucida Console", monospace;
+    }
+
 </style>
 </head>
 <body>
