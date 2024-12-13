@@ -6,7 +6,7 @@
     .header {
         border: 5px outset green;
         color: greenyellow;
-        background-color: black;
+        background-color: darkslategray;
         font-family: "Lucida Console", monospace;
     }
 
