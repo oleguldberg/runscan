@@ -61,28 +61,28 @@ echo "<div class=\"header\">" 2>&1 >> "$outputfile"
 echo "<h1>Hang on!1</h1>" 2>&1 >> "$outputfile"
 
 # Starting information
-echo "Starting scan at: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+echo "Starting scan at: " >> "$outputfile" && echo "<br><b><i>" >> "$outputfile" && date -uR 2>&1 >> "$outputfile" && echo "</b></i><br>" >> "$outputfile" 
 
 # Info on number of domains to be scanned
-echo "<br>Number of domains to be scanned: <b><i>"$number_of_domains"</b></i>" >> "$outputfile"
+echo "<br>Number of domains to be scanned: <br><b><i>"$number_of_domains"</b></i><br>" >> "$outputfile"
 
 # DNS-info - always do DNS-scanning
-echo "<br>DNS-queries: <b><i><p class=\"green\">YES</p></b></i>" >> "$outputfile"
+echo "<br>DNS-queries: <b><i><div class=\"green\">YES</div></b></i><br>" >> "$outputfile"
 
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
 if [ "$use_nmap" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"green\">YES</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"red\">NO</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslscan information
 echo "<br>Analysis with sslscan: " >> "$outputfile"
 if [ "$use_sslscan" = true ]; then 
-	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"green\">YES</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
-	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"red\">NO</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
 # sslyze information
