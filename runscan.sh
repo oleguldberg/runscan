@@ -92,7 +92,7 @@ else
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
 fi
 
-echo "<br><br>" >> "$outputfile"
+echo "<br>" >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
@@ -116,6 +116,13 @@ do
 		echo "<p class=\"red\">NONE</p>" >> "$outputfile"
 	else
 		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
+	fi
+
+	if [[ "$a_record" == "NONE" ]]; then
+		echo "<h3>No A-record, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
+	else
+		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
+		dig -x $i 2>&1 >> "$outputfile"
 	fi
 
 	echo "<hr>" >> "$outputfile"
