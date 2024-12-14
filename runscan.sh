@@ -118,11 +118,12 @@ do
 		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
 	fi
 
+	echo "<hr>" >> "$outputfile"
 	if [[ "$a_record" == "NONE" ]]; then
 		echo "<h3>No A-record, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
 	else
 		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
-		dig -x $i +short 2>&1 >> "$outputfile"
+		dig -x $a_record +short 2>&1 >> "$outputfile"
 	fi
 
 	echo "<hr>" >> "$outputfile"
