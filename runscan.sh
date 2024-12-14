@@ -119,6 +119,7 @@ do
 		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
 	fi
 
+	# If an A-record exists, do reverse lookup
 	echo "<hr>" >> "$outputfile"
 	if [[ "$a_record" == "NONE" ]]; then
 		echo "<h3>No A-record, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
@@ -127,33 +128,42 @@ do
 		dig -x $a_record +short 2>&1 >> "$outputfile"
 	fi
 
+	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking CNAME record</h3>" >> "$outputfile"
 	dig $i CNAME +short  2>&1 >> "$outputfile"
 	
+	# Check if domain has MX records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking MX record<br></h3>" >> "$outputfile"
 	dig $i MX +short 2>&1 >> "$outputfile"
 
+	# Check if domain has TXT records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking TXT record</h3>" >> "$outputfile"
 	dig $i TXT +short 2>&1 >> "$outputfile"
 	
+	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC<br></h3>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "<br><br></div>" 2>&1 >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
 
-	# Use nmap if desired
+	# Use nmap if desired, and an A-record exists
 	if [ "$use_nmap" = true ]; then
-		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
-		nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
-		echo "</div>" 2>&1 >> "$outputfile"
+		if [[ "$a_record" == "NONE" ]]; then
+			echo "<h3>No A-record, skipping portscan</h3>" >> "$outputfile" 
+		else
+			echo "<div class=\"info\">" 2>&1 >> "$outputfile"
+			echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
+			# nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
+			nmap -sS -sV -Pn -p0- -T4 $i 2>&1 >> "$outputfile"
+			echo "</div>" 2>&1 >> "$outputfile"
+		fi
 	fi
 
-	# Use sslscan if desired
+	# Use sslscan if desired, and an A-record exists
 	if [ "$use_sslscan" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 		if [[ "$a_record" == "NONE" ]]; then
@@ -165,11 +175,16 @@ do
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
 
-	# Use sslyze if desired
+	# Use sslyze if desired, and an A-record exists
 	if [ "$use_sslyze" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-		echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
-		sslyze $i 2>&1 >> "$outputfile"
+		if [[ "$a_record" == "NONE" ]]; then
+			echo "<h3>No A-record, skipping scanning SSL on host</h3>" >> "$outputfile" 
+		else
+			echo "<div class=\"info\">" 2>&1 >> "$outputfile"
+			echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
+			sslyze $i 2>&1 >> "$outputfile"
+		fi
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
 
