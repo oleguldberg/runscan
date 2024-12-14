@@ -94,7 +94,7 @@ fi
 
 echo "<br>" >> "$outputfile"
 echo "</div>" 2>&1 >> "$outputfile"
-echo "<br>" >> "$outputfile"
+# echo "<br>" >> "$outputfile"
 
 # Loop and handle domains
 for i in $(cat $domains)
@@ -122,7 +122,7 @@ do
 		echo "<h3>No A-record, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
 	else
 		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
-		dig -x $i 2>&1 >> "$outputfile"
+		dig -x $i +short 2>&1 >> "$outputfile"
 	fi
 
 	echo "<hr>" >> "$outputfile"
