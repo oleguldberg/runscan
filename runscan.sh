@@ -110,6 +110,7 @@ do
 	# echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking A record</h3>" >> "$outputfile"
 	
+	# Find and store A-record - if no A-record found, store the value NONE 
 	a_record=$(dig $i A +short)
 	if [ -z "$a_record" ]; then
 		a_record="NONE"
