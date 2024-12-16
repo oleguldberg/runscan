@@ -99,7 +99,7 @@ fi
 
 # pdf-output information
 echo "<br>Outputting html with pandoc: " >> "$outputfile" 
-if [ "$output_html" = true ]; then 
+if [ "$output_pdf" = true ]; then 
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
