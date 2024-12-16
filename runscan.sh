@@ -7,6 +7,7 @@ function show_help {
 	printf "runscan -n \t\t Use nmap to scan all ports on domain\n"
 	printf "runscan -s \t\t Use sslscan to scan ssl-connection\n"
 	printf "runscan -y \t\t Use sslyze to scan ssl-connection\n"
+	printf "runscan -p \t\t Also output a PDF-file with the results\n"
 	printf "runscan -h \t\t Show this help\n"
 }
 
@@ -17,13 +18,14 @@ use_nmap=false
 use_sslscan=false
 use_sslyse=false
 outputfile=scanout.html
+output_pdf=false
 a_record=""
 
 # Reset if getops has been used previously
 OPTIND=1
 
 # Handle auguments
-while getopts "l:o:hnsy" opt; do
+while getopts "pl:o:hnsy" opt; do
 	case "$opt" in
 		l)
 			domains="$OPTARG"
@@ -39,6 +41,9 @@ while getopts "l:o:hnsy" opt; do
 			;;
 		y)
 			use_sslyze=true
+			;;
+		p)
+			output_pdf=true
 			;;
 		h)
 			show_help
@@ -87,6 +92,14 @@ fi
 # sslyze information
 echo "<br>Analyses with sslyze: " >> "$outputfile"
 if [ "$use_sslyze" = true ]; then 
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+else
+	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+fi
+
+# pdf-output information
+echo "<br>Outputting html with pandoc: " >> "$outputfile" 
+if [ "$output_html" = true ]; then 
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"red\">NO</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
@@ -202,5 +215,11 @@ echo "Ending scan at: " >> "$outputfile" && echo "<b><i>" >> "$outputfile" && da
 echo "<br><br></div>" 2>&1 >> "$outputfile"
 echo "<br>" >> "$outputfile"
 
-# put the tail on the outputfile
+# Put the tail on the outputfile
 cat templates/htmltail >> "$outputfile"
+
+# If use requests a PDF-file make it
+	if [ "$output_pdf" = true ]; then
+		# Use pandoc to create a PDF-file
+		pandoc "$outputfile" -t latex -o "$outputfile".pdf 
+	fi 
