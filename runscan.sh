@@ -183,7 +183,7 @@ do
 			echo "<h3>No A-record, skipping scanning SSL on host</h3>" >> "$outputfile" 
 		else
 			echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
-			sslscan $i:443 2>&1 >> "$outputfile"
+			sslscan --no-color $i:443 2>&1 >> "$outputfile"
 		fi
 		echo "</div>" 2>&1 >> "$outputfile"
 	fi
