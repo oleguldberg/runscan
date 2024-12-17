@@ -158,7 +158,7 @@ do
 	
 	# Check domains NS records
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking nameservers</h3>" >> "$outputfile"
+	echo "<h3>Checking NS record</h3>" >> "$outputfile"
 	dig $i NS +short 2>&1 >> "$outputfile"
 
 	# Check if domain has setup DNSSEC
