@@ -156,6 +156,11 @@ do
 	echo "<h3>Checking TXT record</h3>" >> "$outputfile"
 	dig $i TXT +short 2>&1 >> "$outputfile"
 	
+	# Check domains NS records
+	echo "<hr>" >> "$outputfile"
+	echo "<h3>Checking nameservers</h3>" >> "$outputfile"
+	dig $i NS +short 2>&1 >> "$outputfile"
+
 	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC<br></h3>" >> "$outputfile"
