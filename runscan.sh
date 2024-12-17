@@ -98,7 +98,7 @@ else
 fi
 
 # pdf-output information
-echo "<br>Outputting html with pandoc: " >> "$outputfile" 
+echo "<br>Outputting PDF with pandoc: " >> "$outputfile" 
 if [ "$output_pdf" = true ]; then 
 	echo "<b><i>" >> "$outputfile" && echo "<p class=\"green\">YES</p>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
@@ -221,5 +221,6 @@ cat templates/htmltail >> "$outputfile"
 # If use requests a PDF-file make it
 	if [ "$output_pdf" = true ]; then
 		# Use pandoc to create a PDF-file
+		echo "Cooking PDF output"
 		pandoc "$outputfile" -t latex -o "$outputfile".pdf 
 	fi 
