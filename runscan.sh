@@ -141,6 +141,11 @@ do
 		dig -x $a_record +short 2>&1 >> "$outputfile"
 	fi
 
+	# Do whois for domain
+	echo "<hr>" >> "$outputfile"
+	echo "<h3>Checking Whois-record for $i using DK-Hostmaster</h3>" >> "$outputfile"
+	whois -S -h whois.dk-hostmaster.dk $i  2>&1 >> "$outputfile"
+
 	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
