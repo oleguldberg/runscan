@@ -121,7 +121,7 @@ do
 	
 	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	# echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking A record</h3>" >> "$outputfile"
+	echo "<h3>Checking A record for $i</h3>" >> "$outputfile"
 	
 	# Find and store A-record - if no A-record found, store the value NONE 
 	a_record=$(dig $i A +short)
@@ -144,7 +144,7 @@ do
 	# Do whois for domain
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking Whois-record for $i using DK-Hostmaster</h3>" >> "$outputfile"
-	whois -S -h whois.dk-hostmaster.dk $i  2>&1 >> "$outputfile"
+	whois -h whois.dk-hostmaster.dk $i  2>&1 >> "$outputfile"
 
 	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
