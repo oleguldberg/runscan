@@ -116,10 +116,10 @@ do
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
 
-	# Do DNS recon
+	# Start info div
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
-	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	
+	# dnsrecon -d $i -w -n 8.8.4.4  2>&1 >> "$outputfile"
 	# echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking A record</h3>" >> "$outputfile"
 	
@@ -135,7 +135,7 @@ do
 	# If an A-record exists, do reverse lookup
 	echo "<hr>" >> "$outputfile"
 	if [[ "$a_record" == "NONE" ]]; then
-		echo "<h3>No A-record, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
+		echo "<h3>No A-record for $i, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
 	else
 		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
 		dig -x $a_record +short 2>&1 >> "$outputfile"
@@ -143,27 +143,27 @@ do
 
 	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking CNAME record</h3>" >> "$outputfile"
+	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
 	dig $i CNAME +short  2>&1 >> "$outputfile"
 	
 	# Check if domain has MX records
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking MX record<br></h3>" >> "$outputfile"
+	echo "<h3>Checking MX record for $i<br></h3>" >> "$outputfile"
 	dig $i MX +short 2>&1 >> "$outputfile"
 
 	# Check if domain has TXT records
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking TXT record</h3>" >> "$outputfile"
+	echo "<h3>Checking TXT record for $i</h3>" >> "$outputfile"
 	dig $i TXT +short 2>&1 >> "$outputfile"
 	
 	# Check domains NS records
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking NS record</h3>" >> "$outputfile"
+	echo "<h3>Checking NS record for $i</h3>" >> "$outputfile"
 	dig $i NS +short 2>&1 >> "$outputfile"
 
 	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking for DNSSEC<br></h3>" >> "$outputfile"
+	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
 	delv $i 2>&1 >> "$outputfile" 
 	echo "<br><br></div>" 2>&1 >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
@@ -171,7 +171,7 @@ do
 	# Use nmap if desired, and an A-record exists
 	if [ "$use_nmap" = true ]; then
 		if [[ "$a_record" == "NONE" ]]; then
-			echo "<h3>No A-record, skipping portscan</h3>" >> "$outputfile" 
+			echo "<h3>No A-record, skipping portscan for $i</h3>" >> "$outputfile" 
 		else
 			echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 			echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
@@ -185,7 +185,7 @@ do
 	if [ "$use_sslscan" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 		if [[ "$a_record" == "NONE" ]]; then
-			echo "<h3>No A-record, skipping scanning SSL on host</h3>" >> "$outputfile" 
+			echo "<h3>No A-record, skipping scanning SSL for $i</h3>" >> "$outputfile" 
 		else
 			echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 			sslscan --no-color $i:443 2>&1 >> "$outputfile"
@@ -197,7 +197,7 @@ do
 	if [ "$use_sslyze" = true ]; then
 		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 		if [[ "$a_record" == "NONE" ]]; then
-			echo "<h3>No A-record, skipping scanning SSL on host</h3>" >> "$outputfile" 
+			echo "<h3>No A-record, skipping scanning SSL for $i</h3>" >> "$outputfile" 
 		else
 			echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 			echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
