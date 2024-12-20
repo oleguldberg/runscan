@@ -143,7 +143,7 @@ do
 
 	# Do whois for domain
 	echo "<hr>" >> "$outputfile"
-	echo "<h3>Checking Whois-record for $i using DK-Hostmaster</h3>" >> "$outputfile"
+	echo "<h3>Checking domainowner of $i with Whois-information from DK-Hostmaster</h3>" >> "$outputfile"
 	whois -h whois.dk-hostmaster.dk $i | grep Name: 2>&1 >> "$outputfile"
 
 	# Check if domain has CNAME registered
