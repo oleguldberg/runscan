@@ -112,6 +112,10 @@ echo "</div>" 2>&1 >> "$outputfile"
 # Loop and handle domains
 for i in $(cat $domains)
 do
+	# Output status on terminal
+	echo "Checking information for $i"
+
+	# Output for the outputfle
 	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
 	echo "</div>" 2>&1 >> "$outputfile"
