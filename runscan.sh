@@ -173,8 +173,8 @@ do
 	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
-	delv $i 2>&1 >> "$outputfile" 
-	echo "<br><br></div>" 2>&1 >> "$outputfile"
+	delv $i >> "$outputfile" 
+	echo "<br><br></div>"  >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
 
 	# Use nmap if desired, and an A-record exists
