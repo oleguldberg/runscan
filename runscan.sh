@@ -27,7 +27,7 @@ a_record=""
 OPTIND=1
 
 # Handle auguments
-while getopts "pl:o:hnsy" opt; do
+while getopts "pl:o:hnsyg" opt; do
 	case "$opt" in
 		l)
 			domains="$OPTARG"
@@ -46,6 +46,7 @@ while getopts "pl:o:hnsy" opt; do
 			;;
 		g)
 			use_googledns=true
+			;;
 		p)
 			output_pdf=true
 			;;
@@ -154,7 +155,11 @@ do
 		echo "<h3>No A-record for $i, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
 	else
 		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
-		dig -x $a_record +short 2>&1 >> "$outputfile"
+		if [ "$use_googledns" = true ]; then
+			dig @8.8.4.4 -x $a_record +short 2>&1 >> "$outputfile"
+		else
+			dig -x $a_record +short 2>&1 >> "$outputfile"
+		fi
 	fi
 
 	# Do whois for domain
@@ -165,7 +170,7 @@ do
 	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
-	if ["$use_googledns" = true];  then
+	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i CNAME +short  2>&1 >> "$outputfile"
 	else
 		dig $i CNAME +short  2>&1 >> "$outputfile"
@@ -174,16 +179,16 @@ do
 	# Check if domain has MX records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking MX record for $i<br></h3>" >> "$outputfile"
-	if ["$use_googledns" = true];  then
+	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i MX +short 2>&1 >> "$outputfile"
 	else
 		dig $i MX +short 2>&1 >> "$outputfile"
-	if
+	fi
 
 	# Check if domain has TXT records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking TXT record for $i</h3>" >> "$outputfile"
-	if ["$use_googledns" = true];  then
+	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i TXT +short 2>&1 >> "$outputfile"
 	else
 		dig $i TXT +short 2>&1 >> "$outputfile"
@@ -192,7 +197,7 @@ do
 	# Check domains NS records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking NS record for $i</h3>" >> "$outputfile"
-	if ["$use_googledns" = true];  then
+	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i NS +short 2>&1 >> "$outputfile"
 	else
 		dig $i NS +short 2>&1 >> "$outputfile"
@@ -201,7 +206,7 @@ do
 	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
-	if ["$use_googledns" = true];  then
+	if [ "$use_googledns" = true ];  then
 		delv @8.8.4.4 $i >> "$outputfile" 
 	else
 		delv $i >> "$outputfile" 
@@ -265,8 +270,8 @@ echo "<br>" >> "$outputfile"
 cat templates/htmltail >> "$outputfile"
 
 # If use requests a PDF-file make it
-	if [ "$output_pdf" = true ]; then
-		# Use pandoc to create a PDF-file
-		echo "Cooking PDF output"
-		pandoc "$outputfile" -t latex -o "$outputfile".pdf 
-	fi 
+if [ "$output_pdf" = true ]; then
+	# Use pandoc to create a PDF-file
+	echo "Cooking PDF output"
+	pandoc "$outputfile" -t latex -o "$outputfile".pdf 
+fi 
