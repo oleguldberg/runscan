@@ -17,6 +17,7 @@ number_of_domains=0
 use_nmap=false
 use_sslscan=false
 use_sslyse=false
+use_googledns=false
 outputfile=scanout.html
 output_pdf=false
 a_record=""
@@ -42,6 +43,8 @@ while getopts "pl:o:hnsy" opt; do
 		y)
 			use_sslyze=true
 			;;
+		g)
+			use_googledns=true
 		p)
 			output_pdf=true
 			;;
@@ -72,6 +75,14 @@ echo "<br>Number of domains to be scanned: <br><b><i>"$number_of_domains"</b></i
 
 # DNS-info - always do DNS-scanning
 echo "<br>DNS-queries: <b><i><div class=\"green\">YES</div></b></i>" >> "$outputfile"
+
+# GoogleDNS information
+echo "<br>Using Google DNS for queries: " >> "$outputfile"
+if [ "$use_googledns" = true ]; then 
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"green\">YES</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+else
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"red\">NO</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+fi
 
 # Portscanning information
 echo "<br>Scanning ports with nmap: " >> "$outputfile"
@@ -153,27 +164,47 @@ do
 	# Check if domain has CNAME registered
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
-	dig $i CNAME +short  2>&1 >> "$outputfile"
+	if ["$use_googledns" = true];  then
+		dig @8.8.4.4 $i CNAME +short  2>&1 >> "$outputfile"
+	else
+		dig $i CNAME +short  2>&1 >> "$outputfile"
+	fi
 	
 	# Check if domain has MX records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking MX record for $i<br></h3>" >> "$outputfile"
-	dig $i MX +short 2>&1 >> "$outputfile"
+	if ["$use_googledns" = true];  then
+		dig @8.8.4.4 $i MX +short 2>&1 >> "$outputfile"
+	else
+		dig $i MX +short 2>&1 >> "$outputfile"
+	if
 
 	# Check if domain has TXT records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking TXT record for $i</h3>" >> "$outputfile"
-	dig $i TXT +short 2>&1 >> "$outputfile"
-	
+	if ["$use_googledns" = true];  then
+		dig @8.8.4.4 $i TXT +short 2>&1 >> "$outputfile"
+	else
+		dig $i TXT +short 2>&1 >> "$outputfile"
+	fi
+
 	# Check domains NS records
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking NS record for $i</h3>" >> "$outputfile"
-	dig $i NS +short 2>&1 >> "$outputfile"
+	if ["$use_googledns" = true];  then
+		dig @8.8.4.4 $i NS +short 2>&1 >> "$outputfile"
+	else
+		dig $i NS +short 2>&1 >> "$outputfile"
+	fi
 
 	# Check if domain has setup DNSSEC
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
-	delv $i >> "$outputfile" 
+	if ["$use_googledns" = true];  then
+		delv @8.8.4.4 $i >> "$outputfile" 
+	else
+		delv $i >> "$outputfile" 
+	fi
 	echo "<br><br></div>"  >> "$outputfile"
 	# echo "<br>" >> "$outputfile"
 
