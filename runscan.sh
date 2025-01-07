@@ -7,6 +7,7 @@ function show_help {
 	printf "runscan -n \t\t Use nmap to scan all ports on domain\n"
 	printf "runscan -s \t\t Use sslscan to scan ssl-connection\n"
 	printf "runscan -y \t\t Use sslyze to scan ssl-connection\n"
+	printf "runscan -g \t\t Use Google DNS server for DNS queries\n"
 	printf "runscan -p \t\t Also output a PDF-file with the results\n"
 	printf "runscan -h \t\t Show this help\n"
 }
