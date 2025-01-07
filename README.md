@@ -13,6 +13,8 @@ runscan -s              Use sslscan to scan ssl-connection
 
 runscan -y              Use sslyze to scan ssl-connection
 
+runscan -g              Use Google DNS-server for DNS queries
+
 runscan -p              Also output to PDF
 
 runscan -h              Show help
