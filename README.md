@@ -19,6 +19,16 @@ runscan -p              Also output to PDF
 
 runscan -h              Show help
 
+## Prerequisites
+
+You need:
+
+- dig (with delv)
+- whois
+- nmap
+- sslscan
+- sslyze
+- pandoc
 
 ## Notes on delv on MacOS
 The delv command on default MacOS doesnt work when trying to check for DNSSEC. Install the delv command with Homebrew:
