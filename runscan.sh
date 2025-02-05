@@ -8,6 +8,7 @@ function show_help {
 	printf "runscan -s \t\t Use sslscan to scan ssl-connection\n"
 	printf "runscan -y \t\t Use sslyze to scan ssl-connection\n"
 	printf "runscan -g \t\t Use Google DNS server for DNS queries\n"
+	printf "runscan -c \t\t Use CloudFlare DNS server for DNS queries\n"
 	printf "runscan -p \t\t Use pandoc to generate a PDF-file with the results\n"
 	printf "runscan -h \t\t Show this help\n"
 }
@@ -19,6 +20,7 @@ use_nmap=false
 use_sslscan=false
 use_sslyse=false
 use_googledns=false
+use_cloudflaredns=false
 outputfile=scanout.html
 output_pdf=false
 a_record=""
@@ -27,7 +29,7 @@ a_record=""
 OPTIND=1
 
 # Handle auguments
-while getopts "pl:o:hnsyg" opt; do
+while getopts "pl:o:hnsygc" opt; do
 	case "$opt" in
 		l)
 			domains="$OPTARG"
@@ -46,6 +48,11 @@ while getopts "pl:o:hnsyg" opt; do
 			;;
 		g)
 			use_googledns=true
+			use_cloudflaredns=false
+			;;
+		c)
+			use_cloudflaredns=true
+			use_googledns=false
 			;;
 		p)
 			output_pdf=true
@@ -78,9 +85,17 @@ echo "<br>Number of domains to be scanned: <br><b><i>"$number_of_domains"</b></i
 # DNS-info - always do DNS-scanning
 echo "<br>DNS-queries: <b><i><div class=\"green\">YES</div></b></i>" >> "$outputfile"
 
-# GoogleDNS information
+# Google DNS information
 echo "<br>Using Google DNS for queries: " >> "$outputfile"
 if [ "$use_googledns" = true ]; then 
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"green\">YES</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
+else
+	echo "<b><i>" >> "$outputfile" && echo "<div class=\"red\">NO</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
+fi
+
+# CloudFlare DNS information
+echo "<br>Using Cloudflare DNS for queries: " >> "$outputfile"
+if [ "$use_cloudflaredns" = true ]; then 
 	echo "<b><i>" >> "$outputfile" && echo "<div class=\"green\">YES</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile" 
 else
 	echo "<b><i>" >> "$outputfile" && echo "<div class=\"red\">NO</div>" >> "$outputfile" && echo "</b></i>" >> "$outputfile"
@@ -157,6 +172,8 @@ do
 		echo "<h3>Reverse DNS for $i</h3>" 2>&1 >> "$outputfile"
 		if [ "$use_googledns" = true ]; then
 			dig @8.8.4.4 -x $a_record +short 2>&1 >> "$outputfile"
+		elif [ "$use_cloudflaredns" = true ]; then
+			dig @1.1.1.1 -x $a_record +short 2>&1 >> "$outputfile"
 		else
 			dig -x $a_record +short 2>&1 >> "$outputfile"
 		fi
@@ -172,6 +189,8 @@ do
 	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i CNAME +short  2>&1 >> "$outputfile"
+	elif [ "$use_cloudflaredns" = true ]; then
+		dig @1.1.1.1 $i CNAME +short  2>&1 >> "$outputfile"
 	else
 		dig $i CNAME +short  2>&1 >> "$outputfile"
 	fi
@@ -180,6 +199,8 @@ do
 	echo "<hr>" >> "$outputfile"
 	echo "<h3>Checking MX record for $i<br></h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
+		dig @8.8.4.4 $i MX +short 2>&1 >> "$outputfile"
+	elif [ "$use_cloudflaredns" = true ]; then
 		dig @8.8.4.4 $i MX +short 2>&1 >> "$outputfile"
 	else
 		dig $i MX +short 2>&1 >> "$outputfile"
@@ -190,6 +211,8 @@ do
 	echo "<h3>Checking TXT record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i TXT +short 2>&1 >> "$outputfile"
+	elif [ "$use_cloudflaredns" = true ]; then
+		dig @1.1.1.1 $i TXT +short 2>&1 >> "$outputfile"
 	else
 		dig $i TXT +short 2>&1 >> "$outputfile"
 	fi
@@ -199,6 +222,8 @@ do
 	echo "<h3>Checking NS record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i NS +short 2>&1 >> "$outputfile"
+	elif [ "$use_cloudflaredns" = true ]; then
+		dig @1.1.1.1 $i NS +short 2>&1 >> "$outputfile"
 	else
 		dig $i NS +short 2>&1 >> "$outputfile"
 	fi
@@ -208,6 +233,8 @@ do
 	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		delv @8.8.4.4 $i >> "$outputfile" 
+	elif [ "$use_cloudflaredns" = true ]; then
+		delv @1.1.1.1 $i >> "$outputfile"
 	else
 		delv $i >> "$outputfile" 
 	fi
