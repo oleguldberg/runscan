@@ -1,6 +1,7 @@
 # TODO and have done for runscan
 
 - Fix output for nmap with no A
+- Add nmap flag for -sV and maybe -sS
 - Add for checking TLS on MX
 
 ## Things done
