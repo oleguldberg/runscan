@@ -1,6 +1,8 @@
 # TODO and have done for runscan
 
+- Fix output for nmap with no A
 - Add for checking TLS on MX
 
+## Things done
 - Add support for Cloudflare DNS (https://developers.cloudflare.com/1.1.1.1/ip-addresses/) (Done 05-02-2025)
 

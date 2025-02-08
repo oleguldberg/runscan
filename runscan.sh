@@ -249,7 +249,7 @@ do
 			echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 			echo "<h3> Doing portscanning on $i</h3>" 2>&1 >> "$outputfile"
 			# nmap -sS -sV -Pn -v -p0- -T4 $i 2>&1 >> "$outputfile"
-			nmap -sS -sV -Pn -p0- -T4 $i 2>&1 >> "$outputfile"
+			nmap -p0- -T4 $i 2>&1 >> "$outputfile"
 			echo "</div>" 2>&1 >> "$outputfile"
 		fi
 	fi
