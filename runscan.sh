@@ -243,6 +243,7 @@ do
 
 	# Use nmap if desired, and an A-record exists
 	if [ "$use_nmap" = true ]; then
+		echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 		if [[ "$a_record" == "NONE" ]]; then
 			echo "<h3>No A-record, skipping portscan for $i</h3>" >> "$outputfile" 
 		else
