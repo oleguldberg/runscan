@@ -146,7 +146,7 @@ do
 	# Output for the outputfle
 	echo "<div class=\"section\">" 2>&1 >> "$outputfile"
 	echo "<h2>Scanning $i </h2>" 2>&1 >> "$outputfile"
-	echo "</div>" 2>&1 >> "$outputfile"
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Start info div
 	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
@@ -163,9 +163,10 @@ do
 	else
 		echo "<p class=\"green\">$a_record</p>" >> "$outputfile"
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# If an A-record exists, do reverse lookup
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	if [[ "$a_record" == "NONE" ]]; then
 		echo "<h3>No A-record for $i, skipping doing Reverse DNS-lookup</h3>" >> "$outputfile" 
 	else
@@ -178,14 +179,16 @@ do
 			dig -x $a_record +short 2>&1 >> "$outputfile"
 		fi
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Do whois for domain
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking domainowner of $i with Whois-information from DK-Hostmaster</h3>" >> "$outputfile"
 	whois -h whois.dk-hostmaster.dk $i | grep Name: 2>&1 >> "$outputfile"
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Check if domain has CNAME registered
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking CNAME record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i CNAME +short  2>&1 >> "$outputfile"
@@ -194,9 +197,10 @@ do
 	else
 		dig $i CNAME +short  2>&1 >> "$outputfile"
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 	
 	# Check if domain has MX records
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking MX record for $i<br></h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i MX +short 2>&1 >> "$outputfile"
@@ -205,9 +209,10 @@ do
 	else
 		dig $i MX +short 2>&1 >> "$outputfile"
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Check if domain has TXT records
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking TXT record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i TXT +short 2>&1 >> "$outputfile"
@@ -216,9 +221,10 @@ do
 	else
 		dig $i TXT +short 2>&1 >> "$outputfile"
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Check domains NS records
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking NS record for $i</h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		dig @8.8.4.4 $i NS +short 2>&1 >> "$outputfile"
@@ -227,9 +233,10 @@ do
 	else
 		dig $i NS +short 2>&1 >> "$outputfile"
 	fi
+	echo "<br></div>" 2>&1 >> "$outputfile"
 
 	# Check if domain has setup DNSSEC
-	echo "<hr>" >> "$outputfile"
+	echo "<div class=\"info\">" 2>&1 >> "$outputfile"
 	echo "<h3>Checking for DNSSEC for $i<br></h3>" >> "$outputfile"
 	if [ "$use_googledns" = true ];  then
 		delv @8.8.4.4 $i >> "$outputfile" 
@@ -253,7 +260,7 @@ do
 			nmap -p0- -T4 $i 2>&1 >> "$outputfile"
 			#echo "</div>" 2>&1 >> "$outputfile"
 		fi
-		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br></div>" 2>&1 >> "$outputfile"
 
 	fi
 
@@ -266,7 +273,7 @@ do
 			echo "<h3>Doing sslscan on $i</h3>" 2>&1 >> "$outputfile"
 			sslscan --no-color $i:443 2>&1 >> "$outputfile"
 		fi
-		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br></div>" 2>&1 >> "$outputfile"
 	fi
 
 	# Use sslyze if desired, and an A-record exists
@@ -279,7 +286,7 @@ do
 			echo "<h3>Doing sslyze on $i</h3>" 2>&1 >> "$outputfile"
 			sslyze $i 2>&1 >> "$outputfile"
 		fi
-		echo "</div>" 2>&1 >> "$outputfile"
+		echo "<br></div>" 2>&1 >> "$outputfile"
 	fi
 
 	# Breakline before next domain
